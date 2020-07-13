@@ -10,5 +10,13 @@ interface QueryTransactionsResponse {
 }
 
 export const useQueryTransactions = () => {
-    return useQuery<QueryTransactionsResponse>(queryTransactions);
+    const { loading, error, data } = useQuery<QueryTransactionsResponse>(queryTransactions);
+
+    const transactions: Transaction[] = data ? data.transactions : [];
+
+    return {
+        loading,
+        error,
+        transactions,
+    }
 };
