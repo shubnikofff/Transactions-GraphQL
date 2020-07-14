@@ -32,7 +32,7 @@ const TransactionList = () => {
             {transactions.map(transaction => (
                 <TransactionRow key={transaction.id}>
                     <div>
-                        {`#${transaction.id} ${transaction.uuid}`}
+                        {`#${transaction.id} ${transaction.uuid} `}
                         <b>{`${transaction.amount} ${transaction.currency}`}</b>
                     </div>
                     <div>
