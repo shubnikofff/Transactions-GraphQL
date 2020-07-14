@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/react-hooks';
 import { loader } from 'graphql.macro';
 
-import { Transaction } from '../../model';
+import { Transaction } from '../../types/transaction';
 
 const queryTransactions = loader('./queryTransactions.graphql');
 

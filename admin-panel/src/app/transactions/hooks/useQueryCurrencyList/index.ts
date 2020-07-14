@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/react-hooks';
 import { loader } from 'graphql.macro';
-import { Currency } from '../../model';
+import { Currency } from '../../types/transaction';
 
 const queryCurrencyList = loader('./queryCurrencyList.graphql');
 
