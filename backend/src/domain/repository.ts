@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import db from '../db';
 
 import { Currency, Transaction, TransactionInput } from "./model";
@@ -14,6 +12,10 @@ export function findAll() {
     return db.values();
 }
 
+export function findOne(id: string) {
+    return db.get(id);
+}
+
 export function findByCurrency(currency: Currency) {
     return Array.from(db.values()).filter(value => value.currency === currency);
 }
@@ -22,10 +24,10 @@ export function count() {
     return db.size;
 }
 
-export function insert({ amount, currency }: TransactionInput) {
+export function insert({ amount, currency, uuid }: TransactionInput) {
     const newTransaction: Transaction = {
         id: getNextId(),
-        uuid: uuidv4(),
+        uuid,
         currency,
         amount
     };

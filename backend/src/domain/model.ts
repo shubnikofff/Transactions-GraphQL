@@ -12,6 +12,7 @@ export interface Transaction {
 }
 
 export interface TransactionInput {
+    uuid: string,
     amount: number,
     currency: Currency
 }

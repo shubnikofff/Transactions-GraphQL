@@ -6,25 +6,27 @@ const schema = gql`
         USD
         BTC
     }
-    
+
     type Transaction {
         id: ID!
         uuid: String!
         amount: Float!
         currency: Currency!
     }
-    
+
     input TransactionInput {
-        amount: Float!
+        uuid: String!
         currency: Currency!
+        amount: Float!
     }
-    
+
     type Query {
         transactions: [Transaction]!
-        transactionsOfCurrency(currency: Currency): [Transaction]!
+        transaction(id: ID!): Transaction
+        transactionsByCurrency(currency: Currency): [Transaction]!
         transactionsNumber: Int!
     }
-    
+
     type Mutation {
         addTransaction(transaction: TransactionInput!): Transaction!
         updateTransaction(id: ID!, transaction: TransactionInput!): Transaction!
