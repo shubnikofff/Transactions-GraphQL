@@ -17,9 +17,11 @@ interface TransactionsListProps {
 }
 
 const Header = styled.div`
-  padding: 1rem 0;
   display: grid;
+  padding: 1rem 0;
   grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
 `;
 
 function TransactionsList({ loading, error, currencyList, transactions, removeTransaction, updateTransaction }: TransactionsListProps) {

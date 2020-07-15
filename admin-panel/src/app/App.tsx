@@ -10,6 +10,10 @@ const Container = styled.div`
   padding: 0 1rem;
 `;
 
+const Section = styled.div`
+  padding: 1rem 0;
+`;
+
 function App() {
     const { transactions, error, loading, add, update, remove } = useTransactions();
     const { currencyList } = useCurrencyList();
@@ -18,19 +22,23 @@ function App() {
         <Container>
             <h1>Admin panel</h1>
 
-            <NewTransactionForm
-                addTransaction={add}
-                currencyList={currencyList}
-            />
+            <Section>
+                <NewTransactionForm
+                    addTransaction={add}
+                    currencyList={currencyList}
+                />
+            </Section>
 
-            <TransactionsList
-                loading={loading}
-                error={error}
-                currencyList={currencyList}
-                transactions={transactions}
-                removeTransaction={remove}
-                updateTransaction={update}
-            />
+            <Section>
+                <TransactionsList
+                    loading={loading}
+                    error={error}
+                    currencyList={currencyList}
+                    transactions={transactions}
+                    removeTransaction={remove}
+                    updateTransaction={update}
+                />
+            </Section>
 
         </Container>
     )
