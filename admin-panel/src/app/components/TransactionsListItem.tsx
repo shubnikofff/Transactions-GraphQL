@@ -20,7 +20,7 @@ interface TransactionsListItemProps {
 const Row = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
-  padding: 1rem 0;
+  padding: 1rem 0 1rem 1rem;
 `;
 
 function TransactionsListItem({ transaction, currencyList, updateTransaction, removeTransaction }: TransactionsListItemProps) {

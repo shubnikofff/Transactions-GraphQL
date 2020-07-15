@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 const Section = styled.div`
-  padding: 1rem 0;
+  padding-bottom: 2rem;
 `;
 
 function App() {

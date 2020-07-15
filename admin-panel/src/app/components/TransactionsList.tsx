@@ -18,10 +18,9 @@ interface TransactionsListProps {
 
 const Header = styled.div`
   display: grid;
-  padding: 1rem 0;
+  padding: 1rem 0 1rem 1rem;
   grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
-  border-top: 1px solid lightgray;
-  border-bottom: 1px solid lightgray;
+  background-color: #f3f3f3;
 `;
 
 function TransactionsList({ loading, error, currencyList, transactions, removeTransaction, updateTransaction }: TransactionsListProps) {
