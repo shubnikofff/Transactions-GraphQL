@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 
 import styled from 'styled-components';
 import { Form, Formik } from 'formik';
+
 import { InputText, InputSelect } from './form';
 import { validate } from './validationRules';
 
+import { ExecutionResult } from 'graphql';
 import { Currency, Transaction } from './types/transaction';
 import { TransactionFormValues } from './types/form';
-import { ExecutionResult } from 'graphql';
 
 interface TransactionsListItemProps {
     transaction: Transaction,
-    update: (id: string, values: TransactionFormValues) => Promise<ExecutionResult<any>>,
-    remove: (id: string) => void,
+    updateTransaction: (id: string, values: TransactionFormValues) => Promise<ExecutionResult<any>>,
+    removeTransaction: (id: string) => void,
     currencyList: Currency[],
 }
 
@@ -22,7 +23,7 @@ const Row = styled.div`
   padding: 1rem 0;
 `;
 
-function TransactionsListItem({ transaction, currencyList, update, remove }: TransactionsListItemProps) {
+function TransactionsListItem({ transaction, currencyList, updateTransaction, removeTransaction }: TransactionsListItemProps) {
     const [editMode, setEditMode] = useState(false);
     const { id, uuid, amount, currency } = transaction;
 
@@ -34,8 +35,12 @@ function TransactionsListItem({ transaction, currencyList, update, remove }: Tra
                 <div>{currency}</div>
                 <div>{amount}</div>
                 <div>
-                    <button onClick={() => setEditMode(true)}>Update</button>
-                    <button onClick={() => remove(transaction.id)}>Delete</button>
+                    <button onClick={() => setEditMode(true)}>
+                        Update
+                    </button>
+                    <button onClick={() => removeTransaction(id)}>
+                        Delete
+                    </button>
                 </div>
             </Row>
         );
@@ -49,7 +54,7 @@ function TransactionsListItem({ transaction, currencyList, update, remove }: Tra
                 currency
             }}
             onSubmit={(values: TransactionFormValues) => {
-                update(id, values).then(() => setEditMode(false));
+                updateTransaction(id, values).then(() => setEditMode(false));
             }}
             validate={validate}
         >

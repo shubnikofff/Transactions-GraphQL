@@ -10,8 +10,3 @@ export interface Transaction {
     amount: number,
     currency: Currency
 }
-
-export interface TransactionInput {
-    amount: number,
-    currency: Currency
-}

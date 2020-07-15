@@ -1,42 +1,36 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom'
 
-import {
-    CreateTransaction,
-    DeleteTransaction,
-    TransactionsList,
-    UpdateTransaction,
-} from './transactions';
 import styled from 'styled-components';
+
+import { NewTransactionForm, TransactionsList } from './components';
+
+import { useTransactions, useCurrencyList } from './components/hooks';
 
 const Container = styled.div`
   padding: 0 1rem;
 `;
 
-const App = () => {
+function App() {
+    const { transactions, error, loading, add, update, remove } = useTransactions();
+    const { currencyList } = useCurrencyList();
+
     return (
         <Container>
             <h1>Admin panel</h1>
 
-            <Switch>
+            <NewTransactionForm
+                addTransaction={add}
+                currencyList={currencyList}
+            />
 
-                <Route exact path="/">
-                    <TransactionsList />
-                </Route>
-
-                <Route exact path="/create">
-                    <CreateTransaction />
-                </Route>
-
-                <Route exact path="/update/:id">
-                    <UpdateTransaction />
-                </Route>
-
-                <Route exact path="/delete/:id">
-                    <DeleteTransaction />
-                </Route>
-
-            </Switch>
+            <TransactionsList
+                loading={loading}
+                error={error}
+                currencyList={currencyList}
+                transactions={transactions}
+                removeTransaction={remove}
+                updateTransaction={update}
+            />
 
         </Container>
     )

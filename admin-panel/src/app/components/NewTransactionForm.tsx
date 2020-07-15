@@ -1,13 +1,13 @@
 import React from 'react';
 
+import styled from 'styled-components';
 import { Formik, Form, FormikHelpers } from 'formik';
 
 import { InputRadio, InputText } from './form';
-import { validate } from './validationRules';
 
-import { TransactionFormValues } from './types/form';
 import { Currency } from './types/transaction';
-import styled from 'styled-components';
+import { TransactionFormValues } from './types/form';
+import { validate } from './validationRules';
 
 interface NewTransactionFormProps {
     addTransaction: (formValues: TransactionFormValues) => Promise<any>,

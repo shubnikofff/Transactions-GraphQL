@@ -1,8 +1,0 @@
-query {
-    transactions {
-        id
-        uuid
-        amount
-        currency
-    }
-}

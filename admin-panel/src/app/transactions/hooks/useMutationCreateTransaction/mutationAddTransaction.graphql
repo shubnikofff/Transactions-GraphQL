@@ -1,8 +1,0 @@
-mutation addTransaction($transaction: TransactionInput!) {
-    addTransaction(transaction: $transaction) {
-        id
-        uuid
-        currency
-        amount
-    }
-}

@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { loader } from 'graphql.macro';
 
-import { Transaction } from '../types/transaction';
-import { TransactionFormValues } from '../types/form';
+import { Transaction } from '../../types/transaction';
+import { TransactionFormValues } from '../../types/form';
 
 const queryTransactions = loader('./gql/queryTransactions.graphql');
 const mutationAddTransaction = loader('./gql/mutationAddTransaction.graphql');

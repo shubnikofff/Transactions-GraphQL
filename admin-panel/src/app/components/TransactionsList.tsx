@@ -3,21 +3,26 @@ import styled from 'styled-components'
 
 import TransactionsListItem from './TransactionsListItem';
 
-import { useTransactions } from './hooks/useTransactions';
-import { useQueryCurrencyList } from './hooks/useQueryCurrencyList';
-import NewTransactionForm from './NewTransactionForm';
+import { Currency, Transaction } from './types/transaction';
+import { TransactionFormValues } from './types/form';
+import { ExecutionResult } from 'graphql';
 
+interface TransactionsListProps {
+    loading: boolean,
+    error?: Error,
+    currencyList: Currency[]
+    transactions: Transaction[]
+    removeTransaction: (id: string) => Promise<ExecutionResult<any>>
+    updateTransaction: (id: string, values: TransactionFormValues) => Promise<ExecutionResult<any>>
+}
 
-const Grid = styled.div`
+const Header = styled.div`
   padding: 1rem 0;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
 `;
 
-const TransactionsList = () => {
-    const { transactions, error, loading, add, update, remove } = useTransactions();
-    const { currencyList } = useQueryCurrencyList();
-
+function TransactionsList({ loading, error, currencyList, transactions, removeTransaction, updateTransaction }: TransactionsListProps) {
     if (loading) {
         return (
             <p>Loading...</p>
@@ -32,29 +37,25 @@ const TransactionsList = () => {
 
     return (
         <>
-            <NewTransactionForm
-                addTransaction={add}
-                currencyList={currencyList}
-            />
-            <Grid>
+            <Header>
                 <b>Id</b>
                 <b>Uuid</b>
                 <b>Currency</b>
                 <b>Amount</b>
                 <b>Actions</b>
-            </Grid>
+            </Header>
             {transactions.map(transaction => (
                 <TransactionsListItem
                     currencyList={currencyList}
                     key={transaction.id}
-                    remove={remove}
+                    removeTransaction={removeTransaction}
                     transaction={transaction}
-                    update={update}
+                    updateTransaction={updateTransaction}
                 />
             ))}
 
         </>
     );
-};
+}
 
 export default TransactionsList;
