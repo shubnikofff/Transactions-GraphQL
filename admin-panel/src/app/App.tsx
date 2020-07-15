@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import {
     CreateTransaction,
     DeleteTransaction,
-    TransactionList,
+    TransactionsList,
     UpdateTransaction,
 } from './transactions';
 import styled from 'styled-components';
@@ -21,7 +21,7 @@ const App = () => {
             <Switch>
 
                 <Route exact path="/">
-                    <TransactionList />
+                    <TransactionsList />
                 </Route>
 
                 <Route exact path="/create">

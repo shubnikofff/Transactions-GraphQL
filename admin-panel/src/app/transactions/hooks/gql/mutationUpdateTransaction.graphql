@@ -1,0 +1,8 @@
+mutation updateTransaction($id: ID!, $transaction: TransactionInput!) {
+    updateTransaction(id: $id, transaction: $transaction) {
+        id
+        uuid
+        currency
+        amount
+    }
+}

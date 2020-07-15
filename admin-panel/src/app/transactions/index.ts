@@ -1,11 +1,11 @@
 import CreateTransaction from './CreateTransaction';
 import DeleteTransaction from './DeleteTransaction';
-import TransactionList from './TransactionList';
+import TransactionsList from './TransactionsList';
 import UpdateTransaction from './UpdateTransaction';
 
 export {
     CreateTransaction,
     DeleteTransaction,
-    TransactionList,
+    TransactionsList,
     UpdateTransaction,
 };

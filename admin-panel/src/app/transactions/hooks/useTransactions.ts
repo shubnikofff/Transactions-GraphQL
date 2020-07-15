@@ -4,10 +4,11 @@ import { loader } from 'graphql.macro';
 
 import { Transaction } from '../types/transaction';
 import { TransactionFormValues } from '../types/form';
-import { ExecutionResult } from 'graphql';
 
 const queryTransactions = loader('./gql/queryTransactions.graphql');
 const mutationAddTransaction = loader('./gql/mutationAddTransaction.graphql');
+const mutationUpdateTransaction = loader('./gql/mutationUpdateTransaction.graphql');
+const mutationDeleteTransaction = loader('./gql/mutationDeleteTransaction.graphql');
 
 interface QueryTransactionsResponse {
     transactions: Transaction[]
@@ -17,42 +18,67 @@ export function useTransactions() {
     const [transactions, setTransactions] = useState<Transaction[]>([]);
 
     const { loading, error } = useQuery<QueryTransactionsResponse>(queryTransactions, {
-        onCompleted: (data ) => {
-            if(data) {
+        onCompleted: (data) => {
+            if (data) {
                 setTransactions(data.transactions);
             }
         }
     });
 
-    const [addTransaction] = useMutation(mutationAddTransaction);
+    const [addTransaction] = useMutation(mutationAddTransaction, {
+        onCompleted: ({ addTransaction }) => {
+            setTransactions([...transactions, { ...addTransaction }])
+        },
+    });
 
     const add = (formValues: TransactionFormValues) => {
-        addTransaction({
+        return addTransaction({
             variables: {
                 transaction: {
                     ...formValues,
                     amount: parseFloat(formValues.amount),
                 },
             }
-        }).then(console.log);
-            // .then(({ data }: ExecutionResult<Transaction>) => {
-            // co
-            // if (data) {
-            //     setTransactions([
-            //         {
-            //             id: data.id,
-            //             uuid: data.uuid,
-            //             currency: data.currency,
-            //             amount: data.amount,
-            //         },
-            //         ...transactions,
-            //     ]);
-            // }
-        // });
+        });
     };
+
+    const [updateTransaction] = useMutation(mutationUpdateTransaction, {
+        onCompleted: ({ updateTransaction: { id, uuid, currency, amount } }) => {
+            setTransactions(transactions.map((transaction) =>
+                transaction.id === id
+                    ? { id, uuid, currency, amount }
+                    : transaction));
+        }
+    });
+
+    const update = (id: string, values: TransactionFormValues) => {
+        return updateTransaction({
+            variables: {
+                id,
+                transaction: {
+                    ...values,
+                    amount: parseFloat(values.amount),
+                },
+            }
+        });
+    }
+
+    const [deleteTransaction] = useMutation(mutationDeleteTransaction, {
+        onCompleted: ({ deleteTransaction }) => {
+            setTransactions(transactions.filter(transaction => transaction.id !== deleteTransaction.id));
+        }
+    });
+
+    const remove = (id: string) => {
+        return deleteTransaction({
+            variables: { id }
+        });
+    }
 
     return {
         add,
+        remove,
+        update,
         loading,
         error,
         transactions,

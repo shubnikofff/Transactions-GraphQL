@@ -18,7 +18,7 @@ const initialData: Transaction[] = [
     {
         id: '3',
         uuid: uuidv4(),
-        amount: 0.0005,
+        amount: 0.01,
         currency: Currency.BTC
     }
 ];
