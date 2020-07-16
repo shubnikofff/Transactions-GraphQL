@@ -2,12 +2,12 @@ import * as transactionRepository from '../domain/repository'
 
 import { Currency, TransactionInput } from '../domain/model'
 
-interface TransactionRequest {
-    id: string
+interface TransactionsRequest {
+    currency?: Currency
 }
 
-interface TransactionsByCurrencyRequest {
-    currency: Currency
+interface TransactionRequest {
+    id: string
 }
 
 interface AddTransactionRequest {
@@ -25,9 +25,9 @@ interface DeleteTransactionRequest {
 
 const resolvers = {
     Query: {
-        transactions: transactionRepository.findAll,
+        transactions: (_: any, { currency }: TransactionsRequest) =>
+            currency ? transactionRepository.findByCurrency(currency) : transactionRepository.findAll(),
         transaction: (_: any, { id }: TransactionRequest) => transactionRepository.findOne(id),
-        transactionsByCurrency: (_: any, { currency }: TransactionsByCurrencyRequest) => transactionRepository.findByCurrency(currency),
         transactionsNumber: transactionRepository.count,
     },
 

@@ -21,9 +21,8 @@ const schema = gql`
     }
 
     type Query {
-        transactions: [Transaction]!
+        transactions(currency: Currency): [Transaction]!
         transaction(id: ID!): Transaction
-        transactionsByCurrency(currency: Currency): [Transaction]!
         transactionsNumber: Int!
     }
 
