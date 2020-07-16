@@ -15,9 +15,9 @@
     "typescript": "^3.9.6"
   },
   "dependencies": {
-    "@types/uuid": "^8.0.0",
+    "@types/faker": "^4.1.12",
     "apollo-server": "^2.15.1",
-    "graphql": "^15.3.0",
-    "uuid": "^8.2.0"
+    "faker": "^4.1.0",
+    "graphql": "^15.3.0"
   }
 }

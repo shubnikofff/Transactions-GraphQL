@@ -1,26 +1,12 @@
-import { v4 as uuidv4 } from 'uuid';
+import faker from 'faker';
 
 import { Currency, Transaction } from '../domain/model';
 
-const initialData: Transaction[] = [
-    {
-        id: '1',
-        uuid: uuidv4(),
-        amount: 2.5,
-        currency: Currency.EUR
-    },
-    {
-        id: '2',
-        uuid: uuidv4(),
-        amount: 13.6,
-        currency: Currency.USD
-    },
-    {
-        id: '3',
-        uuid: uuidv4(),
-        amount: 0.01,
-        currency: Currency.BTC
-    }
-];
+const initialData: Transaction[] = Array.from({ length: 100 }, (_, index: number): Transaction => ({
+    id: (index + 1).toString(),
+    uuid: faker.random.uuid(),
+    amount: Math.round(faker.random.number({min: 1, max: 300, precision: 0.01}) * 100) / 100,
+    currency: faker.random.arrayElement([Currency.EUR, Currency.USD, Currency.BTC])
+}));
 
 export default initialData;
