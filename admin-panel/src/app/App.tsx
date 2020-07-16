@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { NewTransactionForm, TransactionsList } from './components';
 
-import { useTransactions, useCurrencyList } from './components/hooks';
+import { useTransactions } from './components/hooks';
 
 const Container = styled.div`
   padding: 0 1rem;
@@ -15,8 +15,7 @@ const Section = styled.div`
 `;
 
 function App() {
-    const { transactions, error, loading, add, update, remove } = useTransactions();
-    const { currencyList } = useCurrencyList();
+    const { currencyOptions, transactions, error, loading, add, update, remove } = useTransactions();
 
     return (
         <Container>
@@ -25,7 +24,7 @@ function App() {
             <Section>
                 <NewTransactionForm
                     addTransaction={add}
-                    currencyList={currencyList}
+                    currencyOptions={currencyOptions}
                 />
             </Section>
 
@@ -33,7 +32,7 @@ function App() {
                 <TransactionsList
                     loading={loading}
                     error={error}
-                    currencyList={currencyList}
+                    currencyOptions={currencyOptions}
                     transactions={transactions}
                     removeTransaction={remove}
                     updateTransaction={update}

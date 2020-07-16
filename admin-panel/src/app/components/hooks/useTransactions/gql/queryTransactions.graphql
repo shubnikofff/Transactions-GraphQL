@@ -5,4 +5,10 @@ query {
         amount
         currency
     }
+
+    enumCurrency: __type(name: "Currency") {
+        enumValues {
+            name
+        }
+    }
 }

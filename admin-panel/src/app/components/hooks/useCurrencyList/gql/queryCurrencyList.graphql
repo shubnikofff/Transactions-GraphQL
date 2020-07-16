@@ -1,8 +1,0 @@
-query {
-    __type(name: "Currency") {
-        name
-        enumValues {
-            name
-        }
-    }
-}

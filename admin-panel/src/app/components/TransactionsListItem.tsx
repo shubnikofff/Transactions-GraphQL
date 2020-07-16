@@ -14,7 +14,7 @@ interface TransactionsListItemProps {
     transaction: Transaction,
     updateTransaction: (id: string, values: TransactionFormValues) => Promise<ExecutionResult<any>>,
     removeTransaction: (id: string) => void,
-    currencyList: Currency[],
+    currencyOptions: Currency[],
 }
 
 const Row = styled.div`
@@ -23,7 +23,7 @@ const Row = styled.div`
   padding: 1rem 0 1rem 1rem;
 `;
 
-function TransactionsListItem({ transaction, currencyList, updateTransaction, removeTransaction }: TransactionsListItemProps) {
+function TransactionsListItem({ transaction, currencyOptions, updateTransaction, removeTransaction }: TransactionsListItemProps) {
     const [editMode, setEditMode] = useState(false);
     const { id, uuid, amount, currency } = transaction;
 
@@ -67,7 +67,7 @@ function TransactionsListItem({ transaction, currencyList, updateTransaction, re
                     />
                     <InputSelect
                         name="currency"
-                        options={currencyList}
+                        options={currencyOptions}
                     />
                     <InputText
                         name="amount"

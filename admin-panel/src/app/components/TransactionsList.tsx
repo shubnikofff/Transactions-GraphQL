@@ -10,7 +10,7 @@ import { ExecutionResult } from 'graphql';
 interface TransactionsListProps {
     loading: boolean,
     error?: Error,
-    currencyList: Currency[]
+    currencyOptions: Currency[]
     transactions: Transaction[]
     removeTransaction: (id: string) => Promise<ExecutionResult<any>>
     updateTransaction: (id: string, values: TransactionFormValues) => Promise<ExecutionResult<any>>
@@ -23,7 +23,7 @@ const Header = styled.div`
   background-color: #f3f3f3;
 `;
 
-function TransactionsList({ loading, error, currencyList, transactions, removeTransaction, updateTransaction }: TransactionsListProps) {
+function TransactionsList({ loading, error, currencyOptions, transactions, removeTransaction, updateTransaction }: TransactionsListProps) {
     if (loading) {
         return (
             <p>Loading...</p>
@@ -47,7 +47,7 @@ function TransactionsList({ loading, error, currencyList, transactions, removeTr
             </Header>
             {transactions.map(transaction => (
                 <TransactionsListItem
-                    currencyList={currencyList}
+                    currencyOptions={currencyOptions}
                     key={transaction.id}
                     removeTransaction={removeTransaction}
                     transaction={transaction}

@@ -11,7 +11,7 @@ import { validate } from './validationRules';
 
 interface NewTransactionFormProps {
     addTransaction: (formValues: TransactionFormValues) => Promise<any>,
-    currencyList: Currency[],
+    currencyOptions: Currency[],
 }
 
 const Row = styled.div`
@@ -24,7 +24,7 @@ const initialValues: TransactionFormValues = {
     amount: '',
 };
 
-function NewTransactionForm({ currencyList, addTransaction }: NewTransactionFormProps) {
+function NewTransactionForm({ currencyOptions, addTransaction }: NewTransactionFormProps) {
     const handleSubmit = (values: TransactionFormValues, { resetForm }: FormikHelpers<TransactionFormValues>) => {
         addTransaction(values).then(resetForm);
     };
@@ -45,7 +45,7 @@ function NewTransactionForm({ currencyList, addTransaction }: NewTransactionForm
                         />
                         <InputRadio
                             name="currency"
-                            options={currencyList}
+                            options={currencyOptions}
                         />
                         <InputText
                             name="amount"

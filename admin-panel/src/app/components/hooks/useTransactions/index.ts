@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { loader } from 'graphql.macro';
 
-import { Transaction } from '../../types/transaction';
+import { Currency, Transaction } from '../../types/transaction';
 import { TransactionFormValues } from '../../types/form';
 
 const queryTransactions = loader('./gql/queryTransactions.graphql');
@@ -11,16 +11,21 @@ const mutationUpdateTransaction = loader('./gql/mutationUpdateTransaction.graphq
 const mutationDeleteTransaction = loader('./gql/mutationDeleteTransaction.graphql');
 
 interface QueryTransactionsResponse {
-    transactions: Transaction[]
+    transactions: Transaction[],
+    enumCurrency: {
+        enumValues: { name: Currency }[]
+    }
 }
 
 export function useTransactions() {
     const [transactions, setTransactions] = useState<Transaction[]>([]);
+    const [currencyOptions, setCurrencyOptions] = useState<Currency[]>([]);
 
     const { loading, error } = useQuery<QueryTransactionsResponse>(queryTransactions, {
         onCompleted: (data) => {
             if (data) {
                 setTransactions(data.transactions);
+                setCurrencyOptions(data.enumCurrency.enumValues.map(value => value.name));
             }
         }
     });
@@ -81,6 +86,7 @@ export function useTransactions() {
         update,
         loading,
         error,
+        currencyOptions,
         transactions,
     };
 }
