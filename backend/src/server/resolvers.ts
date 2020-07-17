@@ -1,8 +1,17 @@
 import * as transactionRepository from '../domain/repository'
+import * as transactionService from '../domain/service';
 
 import { Currency, TransactionInput } from '../domain/model'
 
 interface TransactionsRequest {
+    currency?: Currency
+    after?: number
+    offset?: number
+}
+
+interface HasMoreRequest {
+    after: number
+    offset: number
     currency?: Currency
 }
 
@@ -25,10 +34,12 @@ interface DeleteTransactionRequest {
 
 const resolvers = {
     Query: {
-        transactions: (_: any, { currency }: TransactionsRequest) =>
-            currency ? transactionRepository.findByCurrency(currency) : transactionRepository.findAll(),
+        transactions: (_: any, { currency, after, offset }: TransactionsRequest) =>
+            transactionService.getTransactions(currency, after, offset),
         transaction: (_: any, { id }: TransactionRequest) => transactionRepository.findOne(id),
         transactionsNumber: transactionRepository.count,
+        hasMore: (_: any, { after, offset, currency }: HasMoreRequest) =>
+            transactionService.hasMore(after, offset, currency),
     },
 
     Mutation: {

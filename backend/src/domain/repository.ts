@@ -9,7 +9,7 @@ function getNextId(): string {
 }
 
 export function findAll() {
-    return db.values();
+    return Array.from(db.values());
 }
 
 export function findOne(id: string) {
@@ -64,4 +64,8 @@ export function remove(id: string) {
     db.delete(id);
 
     return transaction;
+}
+
+export function getPage(transactions: Transaction[], from: number, limit: number) {
+    return transactions.slice(from, from + limit);
 }
