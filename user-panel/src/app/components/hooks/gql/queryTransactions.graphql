@@ -1,0 +1,9 @@
+query transactions($currency: Currency, $after: Int!, $offset: Int!) {
+    transactions(currency: $currency, after: $after, offset: $offset) {
+        id
+        uuid
+        currency
+        amount
+    }
+    hasMore(currency: $currency, after: $after, offset: $offset)
+}
