@@ -19,7 +19,7 @@ const Row = styled.div`
   align-items: baseline;
   
   & > * {
-    padding-right: 1rem;
+    margin-right: 1rem;
   }
 `;
 
@@ -36,7 +36,7 @@ function NewTransactionForm({ currencyOptions, addTransaction }: NewTransactionF
 
     return (
         <>
-            <h3>New Transaction</h3>
+            <h4>New Transaction</h4>
             <Formik
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
@@ -66,4 +66,4 @@ function NewTransactionForm({ currencyOptions, addTransaction }: NewTransactionF
     );
 }
 
-export default NewTransactionForm;
+export default React.memo<NewTransactionFormProps>(NewTransactionForm);

@@ -12,9 +12,12 @@ interface InputTextProps {
 
 const Container = styled.div`
   height: 3rem;
+  padding-right: 1rem;
 
   & > input {
-    display: block;
+    width: 100%;
+    color: black;
+    font-size: 1rem;
     padding: 0.4rem;
     border: 1px solid black;
   }

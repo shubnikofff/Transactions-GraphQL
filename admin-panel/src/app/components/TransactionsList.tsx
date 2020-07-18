@@ -1,26 +1,27 @@
 import React from 'react';
 import styled from 'styled-components'
 
+import { ExecutionResult } from 'graphql';
+
 import TransactionsListItem from './TransactionsListItem';
 
 import { Currency, Transaction } from './types/transaction';
 import { TransactionFormValues } from './types/form';
-import { ExecutionResult } from 'graphql';
 
 interface TransactionsListProps {
-    loading: boolean,
-    error?: Error,
-    currencyOptions: Currency[]
-    transactions: Transaction[]
-    removeTransaction: (id: string) => Promise<ExecutionResult<any>>
-    updateTransaction: (id: string, values: TransactionFormValues) => Promise<ExecutionResult<any>>
+    currencyOptions: Currency[];
+    error?: Error;
+    loading: boolean;
+    removeTransaction: (id: string) => Promise<ExecutionResult<any>>;
+    transactions: Transaction[];
+    updateTransaction: (id: string, values: TransactionFormValues) => Promise<ExecutionResult<any>>;
 }
 
 const Header = styled.div`
   display: grid;
-  padding: 1rem 0 1rem 1rem;
-  grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
-  background-color: #f3f3f3;
+  padding: 1rem 0;
+  grid-template-columns: 1fr 3fr 2fr 2fr 2fr;
+  border-bottom: 1px solid lightgrey;
 `;
 
 function TransactionsList({ loading, error, currencyOptions, transactions, removeTransaction, updateTransaction }: TransactionsListProps) {
@@ -41,8 +42,8 @@ function TransactionsList({ loading, error, currencyOptions, transactions, remov
             <Header>
                 <b>Id</b>
                 <b>Uuid</b>
-                <b>Currency</b>
                 <b>Amount</b>
+                <b>Currency</b>
                 <b>Actions</b>
             </Header>
             {transactions.map(transaction => (
@@ -59,4 +60,4 @@ function TransactionsList({ loading, error, currencyOptions, transactions, remov
     );
 }
 
-export default TransactionsList;
+export default React.memo<TransactionsListProps>(TransactionsList);

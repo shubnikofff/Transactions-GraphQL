@@ -7,18 +7,27 @@ import { NewTransactionForm, TransactionsList } from './components';
 import { useTransactions } from './components/hooks';
 
 const Container = styled.div`
-  padding: 0 1rem;
+  padding: 0 3rem;
 `;
 
-const Section = styled.div`
-  padding-bottom: 2rem;
+const Section = styled.section`
+  padding: 1rem 0;
 `;
 
 function App() {
-    const { currencyOptions, transactions, error, loading, add, update, remove } = useTransactions();
+    const {
+        add,
+        currencyOptions,
+        error,
+        loading,
+        remove,
+        transactions,
+        update,
+    } = useTransactions();
 
     return (
         <Container>
+
             <h1>Admin panel</h1>
 
             <Section>
@@ -40,7 +49,7 @@ function App() {
             </Section>
 
         </Container>
-    )
+    );
 }
 
 export default App;

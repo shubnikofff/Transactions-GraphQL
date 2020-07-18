@@ -1,11 +1,11 @@
 import Button from './Button';
-import InputSelect from './InputSelect';
+import Select from './Select';
 import InputText from './InputText';
 import RadioGroup from './RadioGroup';
 
 export {
     Button,
-    RadioGroup,
-    InputSelect,
+    Select,
     InputText,
+    RadioGroup,
 }

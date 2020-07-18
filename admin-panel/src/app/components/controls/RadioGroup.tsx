@@ -15,6 +15,7 @@ const Container = styled.div`
 
   & > span {
     padding-right: 0.5rem;
+    color: black;
   }
 `;
 
