@@ -2,23 +2,12 @@ import { useLazyQuery } from '@apollo/react-hooks';
 import { loader } from 'graphql.macro';
 
 import { Transaction } from '../types/transaction';
+import { QueryTransactionsData, QueryTransactionsVariables } from '../types/quries';
 
 import { FILTER_ALL_VALUE } from '../constants';
 
 const queryTransactions = loader('./gql/queryTransactions.graphql');
 const OFFSET = 10;
-
-interface QueryTransactionsData {
-    transactions: Transaction[];
-    transactionsNumber: number;
-    hasMore: boolean;
-}
-
-interface QueryTransactionsVariables {
-    currency: string | null;
-    after: number;
-    offset: number;
-}
 
 function useTransactions() {
     const [fetchTransactions, { loading, error, data, fetchMore }] = useLazyQuery<QueryTransactionsData, QueryTransactionsVariables>(queryTransactions);
