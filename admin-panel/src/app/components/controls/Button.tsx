@@ -19,18 +19,4 @@ const Button = styled.button`
   }
 `
 
-const Select = styled.select`
-  padding: 0.4rem 1rem;
-  background-color: white;
-  border: 1px solid black;
-  
-  &:focus {
-    outline: 0;
-    box-shadow: none;
-  }
-`;
-
-export {
-    Button,
-    Select,
-}
+export default Button;

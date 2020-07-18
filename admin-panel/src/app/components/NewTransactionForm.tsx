@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Formik, Form, FormikHelpers } from 'formik';
 
-import { InputRadio, InputText } from './form';
+import { RadioGroup, InputText, Button } from './controls';
 
 import { Currency } from './types/transaction';
 import { TransactionFormValues } from './types/form';
@@ -16,6 +16,11 @@ interface NewTransactionFormProps {
 
 const Row = styled.div`
   display: flex;
+  align-items: baseline;
+  
+  & > * {
+    padding-right: 1rem;
+  }
 `;
 
 const initialValues: TransactionFormValues = {
@@ -43,16 +48,16 @@ function NewTransactionForm({ currencyOptions, addTransaction }: NewTransactionF
                             name="uuid"
                             placeholder="Uuid"
                         />
-                        <InputRadio
-                            name="currency"
-                            options={currencyOptions}
-                        />
                         <InputText
                             name="amount"
                             placeholder="Amount"
                         />
+                        <RadioGroup
+                            name="currency"
+                            options={currencyOptions}
+                        />
                         <div>
-                            <button type="submit">Create</button>
+                            <Button type="submit">Create</Button>
                         </div>
                     </Row>
                 </Form>

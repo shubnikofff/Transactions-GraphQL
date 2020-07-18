@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Form, Formik } from 'formik';
 
-import { InputText, InputSelect } from './form';
+import { InputText, InputSelect } from './controls';
 import { validate } from './validationRules';
 
 import { ExecutionResult } from 'graphql';
