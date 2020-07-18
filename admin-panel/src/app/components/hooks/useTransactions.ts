@@ -2,26 +2,21 @@ import { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { loader } from 'graphql.macro';
 
-import { Currency, Transaction } from '../../types/transaction';
-import { TransactionFormValues } from '../../types/form';
+import { Currency, Transaction } from '../types/transaction';
+import { TransactionFormValues } from '../types/form';
+import { QueryTransactionsData } from '../types/query';
+import * as MutationTypes from '../types/mutation';
 
 const queryTransactions = loader('./gql/queryTransactions.graphql');
 const mutationAddTransaction = loader('./gql/mutationAddTransaction.graphql');
 const mutationUpdateTransaction = loader('./gql/mutationUpdateTransaction.graphql');
 const mutationDeleteTransaction = loader('./gql/mutationDeleteTransaction.graphql');
 
-interface QueryTransactionsResponse {
-    transactions: Transaction[],
-    enumCurrency: {
-        enumValues: { name: Currency }[]
-    }
-}
-
-export function useTransactions() {
+function useTransactions() {
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [currencyOptions, setCurrencyOptions] = useState<Currency[]>([]);
 
-    const { loading, error } = useQuery<QueryTransactionsResponse>(queryTransactions, {
+    const { loading, error } = useQuery<QueryTransactionsData>(queryTransactions, {
         onCompleted: (data) => {
             if (data) {
                 setTransactions(data.transactions);
@@ -30,11 +25,13 @@ export function useTransactions() {
         }
     });
 
-    const [addTransaction] = useMutation(mutationAddTransaction, {
-        onCompleted: ({ addTransaction }) => {
-            setTransactions([...transactions, { ...addTransaction }])
-        },
-    });
+    const [addTransaction] = useMutation<MutationTypes.MutationAddTransactionData, MutationTypes.MutationAddTransactionVariables>(
+        mutationAddTransaction,
+        {
+            onCompleted: ({ addTransaction }) => {
+                setTransactions([...transactions, { ...addTransaction }])
+            },
+        });
 
     const add = (formValues: TransactionFormValues) => {
         return addTransaction({
@@ -47,14 +44,16 @@ export function useTransactions() {
         });
     };
 
-    const [updateTransaction] = useMutation(mutationUpdateTransaction, {
-        onCompleted: ({ updateTransaction: { id, uuid, currency, amount } }) => {
-            setTransactions(transactions.map((transaction) =>
-                transaction.id === id
-                    ? { id, uuid, currency, amount }
-                    : transaction));
-        }
-    });
+    const [updateTransaction] = useMutation<MutationTypes.MutationUpdateTransactionData, MutationTypes.MutationUpdateTransactionVariables>(
+        mutationUpdateTransaction,
+        {
+            onCompleted: ({ updateTransaction: { id, uuid, currency, amount } }) => {
+                setTransactions(transactions.map((transaction) =>
+                    transaction.id === id
+                        ? { id, uuid, currency, amount }
+                        : transaction));
+            }
+        });
 
     const update = (id: string, values: TransactionFormValues) => {
         return updateTransaction({
@@ -68,11 +67,13 @@ export function useTransactions() {
         });
     }
 
-    const [deleteTransaction] = useMutation(mutationDeleteTransaction, {
-        onCompleted: ({ deleteTransaction }) => {
-            setTransactions(transactions.filter(transaction => transaction.id !== deleteTransaction.id));
-        }
-    });
+    const [deleteTransaction] = useMutation<MutationTypes.MutationDeleteTransactionData, MutationTypes.MutationDeleteTransactionVariables>(
+        mutationDeleteTransaction,
+        {
+            onCompleted: ({ deleteTransaction }) => {
+                setTransactions(transactions.filter(transaction => transaction.id !== deleteTransaction.id));
+            }
+        });
 
     const remove = (id: string) => {
         return deleteTransaction({
@@ -90,3 +91,5 @@ export function useTransactions() {
         transactions,
     };
 }
+
+export default useTransactions;

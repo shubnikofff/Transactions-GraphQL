@@ -1,1 +1,3 @@
-export { useTransactions } from './useTransactions'
+import useTransactions from './useTransactions'
+
+export { useTransactions }
