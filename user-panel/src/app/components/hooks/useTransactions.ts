@@ -1,31 +1,34 @@
 import { useLazyQuery } from '@apollo/react-hooks';
 import { loader } from 'graphql.macro';
+
 import { Transaction } from '../types/transaction';
+
 import { FILTER_ALL_VALUE } from '../constants';
 
 const queryTransactions = loader('./gql/queryTransactions.graphql');
 const OFFSET = 10;
 
 interface QueryTransactionsData {
-    transactions: Transaction[]
-    hasMore: boolean
+    transactions: Transaction[];
+    transactionsNumber: number;
+    hasMore: boolean;
 }
 
 interface QueryTransactionsVariables {
-    currency: string | null
-    after: number
-    offset: number
+    currency: string | null;
+    after: number;
+    offset: number;
 }
 
 function useTransactions() {
     const [fetchTransactions, { loading, error, data, fetchMore }] = useLazyQuery<QueryTransactionsData, QueryTransactionsVariables>(queryTransactions);
 
     const transactions: Transaction[] = data ? data.transactions : [];
-    const hasMore = data && data.hasMore;
+    const transactionsNumber = data?.transactionsNumber;
+    const hasMore = data?.hasMore;
 
     const loadMore = () => fetchMore({
         variables: {
-            // currency: filter,
             after: transactions.length,
             offset: OFFSET,
         },
@@ -35,11 +38,12 @@ function useTransactions() {
             }
 
             return {
-                hasMore: fetchMoreResult.hasMore,
                 transactions: [
                     ...transactions,
                     ...fetchMoreResult.transactions,
                 ],
+                transactionsNumber: fetchMoreResult.transactionsNumber,
+                hasMore: fetchMoreResult.hasMore,
             }
         },
     });
@@ -55,12 +59,13 @@ function useTransactions() {
     }
 
     return {
-        loading,
         error,
-        transactions,
-        search,
         hasMore,
+        loading,
         loadMore,
+        search,
+        transactions,
+        transactionsNumber,
     }
 }
 

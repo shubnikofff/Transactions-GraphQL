@@ -1,7 +1,7 @@
-import Filter from './Filter';
+import SearchPanel from './SearchPanel';
 import TransactionsTable from './TransactionsTable';
 
 export {
-    Filter,
+    SearchPanel,
     TransactionsTable
 }

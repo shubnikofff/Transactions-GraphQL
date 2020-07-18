@@ -1,13 +1,14 @@
 import { useQuery } from '@apollo/react-hooks';
 import { loader } from 'graphql.macro';
 import { useState } from 'react';
+
 import { FILTER_ALL_VALUE } from '../constants';
 
 const queryCurrency = loader('./gql/queryCurrency.graphql');
 
 interface QueryCurrencyData {
     enumCurrency: {
-        enumValues: { name: string }[]
+        enumValues: { name: string }[];
     }
 }
 

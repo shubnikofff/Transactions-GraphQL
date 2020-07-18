@@ -1,34 +1,64 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Filter, TransactionsTable } from './components';
 import { useTransactions } from './components/hooks';
 
+import { Button } from './components/controls';
+import { SearchPanel, TransactionsTable } from './components';
+
 const Container = styled.div`
-  padding: 0 1rem;
+  margin: 0 3rem;
+
+  & > .load-more {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
 `;
 
-const Footer = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 1rem 0 3rem;
+const Section = styled.section`
+  padding: 1rem 0;
 `;
 
 function App() {
-    const { loading, error, transactions, loadMore, hasMore, search } = useTransactions();
+    const {
+        error,
+        hasMore,
+        loading,
+        loadMore,
+        search,
+        transactions,
+        transactionsNumber,
+    } = useTransactions();
 
     return (
         <Container>
+
             <h1>User panel</h1>
-            <Filter search={search} />
-            <TransactionsTable
-                loading={loading}
-                error={error}
-                transactions={transactions}
-            />
-            <Footer>
-                {hasMore && <button onClick={loadMore}>Load more</button>}
-            </Footer>
+
+            <Section>
+                <SearchPanel
+                    className="search-panel"
+                    search={search}
+                />
+            </Section>
+
+            {transactionsNumber && <Section>Number of all transactions: <b>{transactionsNumber}</b></Section>}
+
+            <Section>
+                <TransactionsTable
+                    error={error}
+                    loading={loading}
+                    transactions={transactions}
+                />
+            </Section>
+
+
+            {hasMore && <Section className="load-more">
+				<Button onClick={loadMore}>Load more</Button>
+			</Section>}
+
+
         </Container>
     );
 }
