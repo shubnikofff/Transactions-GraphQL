@@ -33,12 +33,12 @@ function useTransactions() {
             },
         });
 
-    const add = (formValues: TransactionFormValues) => {
+    const add = (values: TransactionFormValues) => {
         return addTransaction({
             variables: {
                 transaction: {
-                    ...formValues,
-                    amount: parseFloat(formValues.amount),
+                    ...values,
+                    amount: parseFloat(values.amount),
                 },
             }
         });

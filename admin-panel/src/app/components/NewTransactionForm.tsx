@@ -6,7 +6,7 @@ import { Formik, Form, FormikHelpers } from 'formik';
 import { RadioGroup, InputText, Button } from './controls';
 
 import { Currency } from './types/transaction';
-import { TransactionFormValues } from './types/form';
+import { FieldNames, TransactionFormValues } from './types/form';
 import { validate } from './validationRules';
 
 interface NewTransactionFormProps {
@@ -45,15 +45,15 @@ function NewTransactionForm({ currencyOptions, addTransaction }: NewTransactionF
                 <Form>
                     <Row>
                         <InputText
-                            name="uuid"
+                            name={FieldNames.UUID}
                             placeholder="Uuid"
                         />
                         <InputText
-                            name="amount"
+                            name={FieldNames.AMOUNT}
                             placeholder="Amount"
                         />
                         <RadioGroup
-                            name="currency"
+                            name={FieldNames.CURRENCY}
                             options={currencyOptions}
                         />
                         <div>

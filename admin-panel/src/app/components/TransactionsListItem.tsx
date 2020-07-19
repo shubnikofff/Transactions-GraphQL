@@ -8,7 +8,7 @@ import { validate } from './validationRules';
 
 import { ExecutionResult } from 'graphql';
 import { Currency, Transaction } from './types/transaction';
-import { TransactionFormValues } from './types/form';
+import { FieldNames, TransactionFormValues } from './types/form';
 
 interface TransactionsListItemProps {
     currencyOptions: Currency[];
@@ -70,15 +70,15 @@ function TransactionsListItem({ transaction, currencyOptions, updateTransaction,
                 <Row>
                     <div>{transaction.id}</div>
                     <InputText
-                        name="uuid"
+                        name={FieldNames.UUID}
                         placeholder="Uuid"
                     />
                     <InputText
-                        name="amount"
+                        name={FieldNames.AMOUNT}
                         placeholder="Amount"
                     />
                     <Select
-                        name="currency"
+                        name={FieldNames.CURRENCY}
                         options={currencyOptions}
                     />
                     <div>
