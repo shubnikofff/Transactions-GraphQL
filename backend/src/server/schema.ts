@@ -22,7 +22,6 @@ const schema = gql`
 
     type Query {
         transactions(currency: Currency, after: Int, offset: Int): [Transaction]!
-        transaction(id: ID!): Transaction
         transactionsNumber: Int!
         hasMore(after: Int!, offset: Int!, currency: Currency): Boolean!
     }

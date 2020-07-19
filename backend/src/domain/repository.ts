@@ -1,6 +1,6 @@
 import db from '../db';
 
-import { Currency, Transaction, TransactionInput } from "./model";
+import { Currency, Transaction, TransactionInput } from "./types/transaction";
 
 let nextId = db.size + 1;
 
@@ -37,33 +37,19 @@ export function insert({ amount, currency, uuid }: TransactionInput) {
     return newTransaction;
 }
 
-export function update(id: string, transactionInput: TransactionInput) {
-    const transaction = db.get(id);
-
-    if(!transaction) {
-        throw new Error(`No such transaction with id = '${id}'`);
-    }
-
+export function update(transaction: Transaction, input: TransactionInput) {
     const updatedTransaction = {
         ...transaction,
-        ...transactionInput,
+        ...input,
     };
 
-    db.set(id, updatedTransaction);
+    db.set(transaction.id, updatedTransaction);
 
     return updatedTransaction;
 }
 
 export function remove(id: string) {
-    const transaction = db.get(id);
-
-    if(!transaction) {
-        throw new Error(`No such transaction with id = '${id}'`);
-    }
-
     db.delete(id);
-
-    return transaction;
 }
 
 export function getPage(transactions: Transaction[], from: number, limit: number) {
