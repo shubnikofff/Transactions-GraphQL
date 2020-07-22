@@ -1,0 +1,28 @@
+version: '3.3'
+
+services:
+  backend:
+    build:
+      ./backend
+    ports:
+      - 4000:4000
+
+  admin-panel:
+    build:
+      ./admin-panel
+    ports:
+      - 8080:80
+    depends_on:
+      - backend
+    environment:
+      - SERVER_URI=localhost:4000
+
+  user-panel:
+    build:
+      ./user-panel
+    ports:
+      - 8081:80
+    depends_on:
+      - backend
+    environment:
+      - SERVER_URI=localhost:4000

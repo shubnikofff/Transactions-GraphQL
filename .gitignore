@@ -1,4 +1,2 @@
 .idea
-**/node_modules
-backend/dist/**
 **.iml

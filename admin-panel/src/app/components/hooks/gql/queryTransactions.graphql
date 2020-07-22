@@ -1,0 +1,14 @@
+query {
+    transactions {
+        id
+        uuid
+        amount
+        currency
+    }
+
+    enumCurrency: __type(name: "Currency") {
+        enumValues {
+            name
+        }
+    }
+}
