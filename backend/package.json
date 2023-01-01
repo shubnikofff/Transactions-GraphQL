@@ -11,11 +11,11 @@
   "author": "Alexey Shubnikov",
   "license": "ISC",
   "devDependencies": {
-    "ts-loader": "^8.0.1",
+    "ts-loader": "^8.4.0",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.6",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
     "webpack-node-externals": "^2.5.0"
   },
   "dependencies": {
